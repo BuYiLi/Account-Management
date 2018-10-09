@@ -81,13 +81,13 @@ public class ResponseTemplateBuilder {
     public static class Failed{
         private ResponseTemplateBuilder builder;
 
-        public Success(){
+        public Failed(){
             builder = new ResponseTemplateBuilder();
-            builder.code = 1;
-            builder.msg = "成功";
+            builder.code = 2;
+            builder.msg = "失败";
         }
 
-        public Success body(Object body){
+        public Failed body(Object body){
             builder.body = body;
             return this;
         }
