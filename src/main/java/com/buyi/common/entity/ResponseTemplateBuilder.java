@@ -1,4 +1,4 @@
-package com.account.management.common.entity;
+package com.buyi.common.entity;
 
 public class ResponseTemplateBuilder {
 

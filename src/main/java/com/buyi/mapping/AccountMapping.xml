@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.buyi.mappers.AccountMapper">
+
+    <select id="queryAccount" parameterType="java.lang.Integer" resultType="com.buyi.entity.Account">
+        <bind name="_NORMAL" value="@com.buyi.constant.DeleteFlagEnum@NORMAL.flag"/>
+        <bind name="_ENABLE" value="@com.buyi.constant.DisableFlagEnum@ENABLE.flag"/>
+        SELECT `id`, a_id, nickname, `email`, psw, description FROM account
+        WHERE id = #{id} AND del_flag = #{_NORMAL} AND dis_flag = #{_ENABLE}
+    </select>
+
+    <insert id="addAccount" parameterType="com.buyi.entity.Account">
+      <bind name="_NORMAL" value="@com.buyi.constant.DeleteFlagEnum@NORMAL.flag"/>
+        <bind name="_ENABLE" value="@com.buyi.constant.DisableFlagEnum@ENABLE.flag"/>
+      INSERT INTO account (c_time, del_flag, dis_flag, a_id, nickname, email, psw, description)
+      VALUES (NOW(), #{_NORMAL}, #{_ENABLE}, #{aId}, #{nickname}, #{email}, #{psw}, #{description})
+    </insert>
+
+    <update id="updateAccount" parameterType="com.buyi.entity.Account">
+        UPDATE account
+        <set>
+            <if test="aId != null">a_id = #{aId},</if>
+            <if test="nickname != null">nickname = #{nickname},</if>
+            <if test="email != null">email = #{email},</if>
+            <if test="psw != null">psw = #{psw},</if>
+            <if test="description != null">description = #{description}</if>
+        </set>
+        WHERE id = #{id}
+    </update>
+
+    <update id="delAccount" parameterType="java.lang.Integer">
+        <bind name="_DELETE" value="@com.buyi.constant.DeleteFlagEnum@DELETE.flag"/>
+        UPDATE account SET del_flag = #{_DELETE} WHERE id = #{id}
+    </update>
+
+    <update id="disAccount" parameterType="java.lang.Integer">
+        <bind name="_DISABLE" value="@com.buyi.constant.DisableFlagEnum@DISABLE.flag"/>
+        UPDATE account SET dis_flag = #{_DISABLE} WHERE id = #{id}
+    </update>
+</mapper>

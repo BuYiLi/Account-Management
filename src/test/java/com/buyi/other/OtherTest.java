@@ -1,4 +1,4 @@
-package com.account.management.other;
+package com.buyi.other;
 
 import org.junit.Test;
 
@@ -8,7 +8,7 @@ public class OtherTest {
         private int number = 10;
 
         public synchronized void first(){
-            System.out.println("first method is run...");
+            System.out.println("first met      hod is run...");
             number = number + 1;
         }
 
