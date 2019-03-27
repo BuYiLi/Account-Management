@@ -1,19 +1,18 @@
-package com.buyi.entity;
+package com.buyi.dto.request;
 
-public class User extends CommonFiled {
+import javax.validation.constraints.NotNull;
+import java.io.Serializable;
 
-    private Integer disFlag;
+public class RegisterRequest implements Serializable {
+
+    @NotNull(message = "用户名不能为空!")
     private String name;
+
+    @NotNull(message = "邮箱不能为空!")
     private String email;
+
+    @NotNull(message = "密码不能为空!")
     private String psw;
-
-    public Integer getDisFlag() {
-        return disFlag;
-    }
-
-    public void setDisFlag(Integer disFlag) {
-        this.disFlag = disFlag;
-    }
 
     public String getName() {
         return name;
@@ -38,4 +37,6 @@ public class User extends CommonFiled {
     public void setPsw(String psw) {
         this.psw = psw;
     }
+
+
 }

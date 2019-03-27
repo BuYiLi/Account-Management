@@ -2,13 +2,23 @@ package com.buyi.entity;
 
 import java.io.Serializable;
 
-public class Account extends Common implements Serializable {
+public class Account extends CommonFiled implements Serializable {
 
+
+    private Integer userId;
     private String aId;
     private String nickname;
     private String email;
     private String psw;
     private String description;
+
+    public Integer getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Integer userId) {
+        this.userId = userId;
+    }
 
     public String getaId() {
         return aId;

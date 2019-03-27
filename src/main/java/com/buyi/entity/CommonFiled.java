@@ -3,15 +3,13 @@ package com.buyi.entity;
 import java.io.Serializable;
 import java.util.Date;
 
-public class Common implements Serializable {
+public class CommonFiled implements Serializable {
 
     private Integer id;
 
     private Date cTime;
 
     private Integer delFlag;
-
-    private Integer disFlag;
 
     public Integer getId() {
         return id;
@@ -35,13 +33,5 @@ public class Common implements Serializable {
 
     public void setDelFlag(Integer delFlag) {
         this.delFlag = delFlag;
-    }
-
-    public Integer getDisFlag() {
-        return disFlag;
-    }
-
-    public void setDisFlag(Integer disFlag) {
-        this.disFlag = disFlag;
     }
 }

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.buyi.mappers.UserMapper">
+
+    <sql id="NORMAL_ENABLE">
+        <bind name="_NORMAL" value="@com.buyi.constant.DeleteFlagEnum@NORMAL.flag"/>
+        <bind name="_ENABLE" value="@com.buyi.constant.DisableFlagEnum@ENABLE.flag"/>
+        AND del_flag = #{_NORMAL} AND dis_flag = #{_ENABLE}
+    </sql>
+
+    <select id="queryUser" parameterType="java.lang.Integer" resultType="com.buyi.entity.User">
+        SELECT id, c_time, name, email, psw FROM `user`
+        WHERE id = #{id} <include refid="NORMAL_ENABLE"></include>
+    </select>
+
+    <select id="queryByEmail" parameterType="java.lang.String" resultType="com.buyi.entity.User">
+        SELECT id, email, psw FROM `user`
+        WHERE email = #{email}
+        <include refid="NORMAL_ENABLE"></include>
+    </select>
+
+    <insert id="addUser" parameterType="com.buyi.entity.User">
+        <bind name="_NORMAL" value="@com.buyi.constant.DeleteFlagEnum@NORMAL.flag"/>
+        <bind name="_ENABLE" value="@com.buyi.constant.DisableFlagEnum@ENABLE.flag"/>
+        INSERT INTO `user` (c_time, del_flag, dis_flag, `name`, email, psw)
+        VALUES (NOW(), #{_NORMAL}, #{_ENABLE}, #{name}, #{email}, #{psw})
+    </insert>
+
+    <update id="updateUser" parameterType="com.buyi.entity.User">
+        <bind name="_NORMAL" value="@com.buyi.constant.DeleteFlagEnum@NORMAL.flag"/>
+        <bind name="_ENABLE" value="@com.buyi.constant.DisableFlagEnum@ENABLE.flag"/>
+        UPDATE `user`
+        <set>
+            <if test="name != null ">`name` = #{name},</if>
+            <if test="email != null">`email` = #{email},</if>
+            <if test="psw != null">`psw` = #{psw},</if>
+        </set>
+        WHERE id = #{id} AND del_flag = #{_NORMAL} AND dis_flag = #{_ENABLE}
+    </update>
+
+    <update id="delUser" parameterType="java.lang.Integer">
+        <bind name="_DELETE" value="@com.buyi.constant.DeleteFlagEnum@DELETE.flag"/>
+        UPDATE `user` SET del_flag = #{_DELETE} WHERE id = #{id}
+    </update>
+
+    <update id="disUser" parameterType="java.lang.Integer">
+        <bind name="_DISABLE" value="@com.buyi.constant.DisableFlagEnum@DISABLE.flag"/>
+        UPDATE `user` SET dis_flag = #{_DISABLE} WHERE id = #{id}
+    </update>
+</mapper>
